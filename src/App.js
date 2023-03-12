@@ -10,9 +10,9 @@ function App() {
   const [filteredTodos,setFilteredTodos]=useState([])
 
 useEffect(()=>{
-    filterHandler(todos)
+    filterHandler()
 },[todos,status]);
-console.log(filteredTodos);
+
 
 const filterHandler = ()=> {
   switch (status) {
@@ -34,7 +34,7 @@ const filterHandler = ()=> {
         <h1>My Todo List </h1>
       </header>
       <Form inputText={inputText} setInputText={setInputText} todos={todos} setTodos={setTodos} setStatus={setStatus}/>
-      <TodoList todos={todos} setTodos={setTodos} ></TodoList>
+      <TodoList todos={todos} setTodos={setTodos} filteredTodos={filteredTodos}></TodoList>
     </div>
   );
 }

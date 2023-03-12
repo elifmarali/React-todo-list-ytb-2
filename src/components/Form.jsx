@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 function Form ({inputText,setInputText,todos,setTodos,setStatus}){
-    //*her refresh olduğunda sayfadaki add buton unun refresh olmasını engellemek için
-    const submitTodoHandler = (e)=>{
-        e.preventDefault();
-       setTodos([...todos,{text:inputText,completed:false,id:Math.random()}]);
-       setInputText("");
-    }
+const [alertWarning,setAlertWarning]=useState(false);
+const [alertSuccess,setAlertSuccess]=useState(false);
 
+
+
+    //*her refresh olduğunda sayfadaki add buton unun refresh olmasını engellemek için
+    const submitTodoHandler = (e) => {
+        e.preventDefault();
+        const isEmpty = str => !str.trim().length;
+        if (isEmpty(inputText)) {
+            setAlertWarning(true);
+            setTimeout(() => {
+                setAlertWarning(false);
+            }, 1000);
+        } else {
+            setAlertSuccess(true);
+            setTimeout(() => {
+                setAlertSuccess(false);
+            }, 1000);
+            setTodos([
+                ...todos,
+                { text: inputText, completed: false, id: Math.random() }
+            ]);
+        }
+
+        setInputText("")
+    }
 const inputTodoHandler = (e)=>{
 setInputText(e.target.value);
 }
@@ -24,13 +44,19 @@ setStatus(e.target.value);
             </button>
         </div> 
 
-        <div className="select">
+        <div className="select"> 
             <select name="todos" className="filter-todo" onChange={statusHandler}>
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
                 <option value="uncompleted">Uncompleted</option>
-            </select>
+            </select> 
         </div>
+        <div className="alert-wrapper">
+           {alertWarning ? <div className="alert-warning"><div>Input alanı boş geçilemez!</div></div> : ""} 
+           {alertSuccess ?  <div className="alert-success"> <div>Ekleme Başarılı.</div></div> : ""} 
+               
+       
+            </div>
     </form>
     )
 }
