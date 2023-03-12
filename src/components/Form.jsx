@@ -1,14 +1,18 @@
 import React from "react";
-function Form ({inputText,setInputText,todos,setTodos}){
+function Form ({inputText,setInputText,todos,setTodos,setStatus}){
     //*her refresh olduğunda sayfadaki add buton unun refresh olmasını engellemek için
     const submitTodoHandler = (e)=>{
         e.preventDefault();
-        setTodos([...todos,{text:inputText,completed:false,id:Math.random()}]);
-        setInputText("");
+       setTodos([...todos,{text:inputText,completed:false,id:Math.random()}]);
+       setInputText("");
     }
 
 const inputTodoHandler = (e)=>{
 setInputText(e.target.value);
+}
+
+const statusHandler=(e)=>{
+setStatus(e.target.value);
 }
 
     return(
@@ -21,7 +25,7 @@ setInputText(e.target.value);
         </div> 
 
         <div className="select">
-            <select name="todos" className="filter-todo">
+            <select name="todos" className="filter-todo" onChange={statusHandler}>
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
                 <option value="uncompleted">Uncompleted</option>
