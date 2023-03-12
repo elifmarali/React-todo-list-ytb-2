@@ -53,10 +53,8 @@ setStatus(e.target.value);
         </div>
         <div className="alert-wrapper">
            {alertWarning ? <div className="alert-warning"><div>Input alanı boş geçilemez!</div></div> : ""} 
-           {alertSuccess ?  <div className="alert-success"> <div>Ekleme Başarılı.</div></div> : ""} 
-               
-       
-            </div>
+           {alertSuccess ?  <div className="alert-success"> <div>Ekleme Başarılı.</div></div> : ""}     
+        </div>
     </form>
     )
 }

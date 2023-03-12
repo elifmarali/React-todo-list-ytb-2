@@ -5,13 +5,23 @@ import TodoList from './components/TodoList';
 
 function App() {
   const [inputText,setInputText]=useState("");
-  const [todos,setTodos]=useState([]);
+  const [todos,setTodos]=useState([{text: "React hooks arastir" , completed:false, id:0.634924623},
+  {text: "Javascript filter methodunu arastir" , completed:true, id:0.63496812923},
+  {text: "Ingilizce calis" , completed:false, id:0.634998286426424623}
+
+]);
   const [status,setStatus] =useState("all");
   const [filteredTodos,setFilteredTodos]=useState([])
 
+
+useEffect(()=>{
+getLocalTodos();
+},[])
+
 useEffect(()=>{
     filterHandler()
-},[todos,status]);
+    saveLocalTodos()
+},[todos,status]); //eslint-disable-line
 
 
 const filterHandler = ()=> {
@@ -28,6 +38,18 @@ const filterHandler = ()=> {
   }
 }
 
+//save to localStorage
+const saveLocalTodos = () =>{
+  localStorage.setItem("todos",JSON.stringify(todos))
+}
+ const getLocalTodos = ()=>{
+if(localStorage.getItem("todos")===null){
+localStorage.setItem("todos",JSON.stringify([]))
+}
+ else{
+setTodos(JSON.parse(localStorage.getItem("todos")))
+ }
+ }
   return (
     <div className="App">
       <header>
@@ -40,4 +62,3 @@ const filterHandler = ()=> {
 }
 
 export default App;
-
